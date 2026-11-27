@@ -6,7 +6,7 @@ import datetime
 User interface of the taxifare estimator
 """
 
-# api_url = st.secrets['API_URL']
+api_url = st.secrets['API_URL']
 
 st.markdown("""# Taxifare
 This is the taxifare estimator interface""")
@@ -22,7 +22,6 @@ dropoff_latitude = st.slider('Dropoff Latitude', min_value=-90.0, max_value=90.0
 passenger_count = st.number_input('Passengers', 1, 3)
 
 if st.button("Predict fare"):
-    url = 'http://localhost:8080'
     params = {
         "pickup_datetime": pickup_datetime,
         "pickup_longitude": pickup_longitude,
@@ -32,5 +31,5 @@ if st.button("Predict fare"):
         "passenger_count": passenger_count,
     }
 
-    response = requests.get(f"{url}/predict", params=params).json()
+    response = requests.get(f"{api_url}/predict", params=params).json()
     st.write(response['fare'])
